@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Tests" duration-ms="4412" started-at="2014-01-24T10:54:18Z" finished-at="2014-01-24T10:54:22Z">
+    <groups>
+    </groups>
+    <test name="Test1" duration-ms="4412" started-at="2014-01-24T10:54:18Z" finished-at="2014-01-24T10:54:22Z">
+      <class name="actis.test.selenium.IncorrectPassword">
+        <test-method status="PASS" signature="init()[pri:0, instance:actis.test.selenium.IncorrectPassword@18caa36]" name="init" is-config="true" duration-ms="1878" started-at="2014-01-24T14:54:18Z" finished-at="2014-01-24T14:54:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="testIncorrectPassword()[pri:0, instance:actis.test.selenium.IncorrectPassword@18caa36]" name="testIncorrectPassword" duration-ms="1172" started-at="2014-01-24T14:54:20Z" finished-at="2014-01-24T14:54:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testIncorrectPassword -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:actis.test.selenium.IncorrectPassword@18caa36]" name="tearDown" is-config="true" duration-ms="0" started-at="2014-01-24T14:54:22Z" finished-at="2014-01-24T14:54:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- actis.test.selenium.IncorrectPassword -->
+      <class name="actis.test.selenium.CorrectPassword">
+        <test-method status="PASS" signature="init()[pri:0, instance:actis.test.selenium.CorrectPassword@1d4179]" name="init" is-config="true" duration-ms="2" started-at="2014-01-24T14:54:21Z" finished-at="2014-01-24T14:54:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="testCorrectPassword()[pri:0, instance:actis.test.selenium.CorrectPassword@1d4179]" name="testCorrectPassword" duration-ms="1347" started-at="2014-01-24T14:54:21Z" finished-at="2014-01-24T14:54:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCorrectPassword -->
+      </class> <!-- actis.test.selenium.CorrectPassword -->
+    </test> <!-- Test1 -->
+  </suite> <!-- Tests -->
+</testng-results>

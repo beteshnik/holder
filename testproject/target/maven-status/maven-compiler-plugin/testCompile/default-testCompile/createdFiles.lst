@@ -1,0 +1,4 @@
+actis\test\selenium\pages\HomePageTest.class
+actis\test\selenium\CorrectPassword.class
+actis\test\selenium\IncorrectPassword.class
+actis\test\selenium\pages\TestBase.class
