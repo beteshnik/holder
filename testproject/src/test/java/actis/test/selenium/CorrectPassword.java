@@ -1,4 +1,4 @@
-﻿package actis.test.selenium;
+package actis.test.selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
