@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: elxcrm.JUnitTestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 58.942 s <<< FAILURE! - in elxcrm.JUnitTestSuite
+testOne(elxcrm.One)  Time elapsed: 58.9 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+Unable to locate element: Зарегистрироваться
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.4.0', revision: 'unknown', time: 'unknown'
+System info: host: 'MOS8174', ip: '10.242.32.119', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_144'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities [{moz:profile=C:\Users\TATYAN~1\AppData\Local\Temp\rust_mozprofile.OlgercPiUdfb, rotatable=false, timeouts={implicit=0.0, pageLoad=300000.0, script=30000.0}, pageLoadStrategy=normal, platform=ANY, specificationLevel=0.0, moz:accessibilityChecks=false, acceptInsecureCerts=false, browserVersion=54.0, platformVersion=10.0, moz:processID=3084.0, browserName=firefox, javascriptEnabled=true, platformName=windows_nt}]
+Session ID: 9b18ec49-c141-497c-b6c7-e5589b3953f2
+*** Element info: {Using=link text, value=Зарегистрироваться}
+	at elxcrm.One.testOne(One.java:29)
+
