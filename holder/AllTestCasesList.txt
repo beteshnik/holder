@@ -1,0 +1,33 @@
+﻿
+
+/// ПРИХВАТКА
+Список всех тесткейсов и порядок выполнения
++HolderCreateNewUser
++HolderNavigation - навигация на форме прихватки
++HolderFields - комплектность полей формы прихватки
++HolderFieldsReview - комплектность полей формы отзыва
+HolderFieldsAddress - комплектность полей формы адреса
+HolderProductValidators  - валидация формы прихватки, товар
+HolderReviewValidators  - валидация формы прихватки, отзыв
+HolderAddressValidators  - валидация формы прихватки, адрес
+HolderChooseMyProduct - выбор из моих продуктов
+HolderChooseNewProduct - добавление нового товара
+HolderReviewAddRemove - добавление, удаление отзывов
+HolderProductAddRemove - добавление, удаление товаров
+HolderPrize - выбор приза
++HolderNew - создание новой заявки
+HolderMailModerating - письмо после отправки заявки на модерацию
+HolderBack - просмотр созданной заявки в админке
+HolderOld - просмотр ранее созданной заявки
+HolderOldComments - комментарии модератора
+HolderOldEdit - редактирование ранее созданной заявки
+HolderStatus - отображение статусов заявки
+HolderMails - письма при изменении статусов заявки
+
+
+TODO
+
+Кнопка Назад в HolderNavigation
+
+
+
