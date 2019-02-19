@@ -1,6 +1,0 @@
-actis\test\selenium\util\Browser.class
-actis\test\selenium\util\PropertyLoader.class
-actis\test\selenium\webdriver\AuthenticatedHtmlUnitDriver.class
-actis\test\selenium\pages\Page.class
-actis\test\selenium\webdriver\WebDriverFactory.class
-actis\test\selenium\pages\HomePage.class
