@@ -86,18 +86,12 @@ public class HolderNew {
 
   @Test
   public void testHolderNew() throws Exception {
-
-//1. Создать нового пользователя (или использовать ранее созданного без заявок), авторизоваться, 
+	PageObjectLoginForm loginForm = new PageObjectLoginForm();
+	loginForm.init(driver);
+//1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
-	driver.findElement(By.xpath("//div[@class='cookie-sticky-holder fixed ']//div[@class='close-btn icon-cross-white']")).click();
-	driver.findElement(By.name("login")).click();
-	driver.findElement(By.name("login")).clear();
-	driver.findElement(By.name("login")).sendKeys(username + "@gmail.com");
-	driver.findElement(By.name("password")).click();
-	driver.findElement(By.name("password")).clear();
-	driver.findElement(By.name("password")).sendKeys(password);
-	driver.findElement(By.xpath("//button[text()='Войти']")).click();
+	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 	
 //добавить продукт, участвующий в акции, в Мои продукты
@@ -126,7 +120,7 @@ public class HolderNew {
 	
 //открыть форму акции ->	
 	driver.get(baseUrl + "campaigns/1");
-	utils.waitForLoad(driver);
+    utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 
 //открылась страница с формой акции (проверка по заголовку, url)
 	errorn=errorn+1;
@@ -157,6 +151,7 @@ public class HolderNew {
 	driver.findElement(By.xpath("//label[contains(.,'Модель')]/following-sibling::div//input[@role='combobox']")).sendKeys(Keys.TAB);
 	
 	new Select(driver.findElement(By.name("$.products[0].number"))).selectByVisibleText(PNC1);
+	utils.waitForLoad(driver);
 	 driver.findElement(By.name("$.products[0].number")).sendKeys(Keys.TAB);
 	
 
@@ -371,7 +366,7 @@ public class HolderNew {
     driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());
     file = new File("src/test/resources/" + file001);
     driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());
-
+	utils.waitForLoad(driver);
 	
 	driver.findElement(By.xpath("//label[contains(.,'Выбрать комплимент')]/following-sibling::*//span[@class='Select-arrow']")).click();	
 	xPathQuery = String.format("//*[@class='Select-option is-focused' and contains(.,'%s')]", prize00);
@@ -380,7 +375,7 @@ public class HolderNew {
 	
 
 	driver.findElement(By.xpath("//button[contains(.,'Добавить отзыв')]")).click();
-	utils.waitForElement("//*[contains(.,'Сcылка на отзыв')]", driver);
+	utils.waitForLoad(driver);
 	new Select(driver.findElement(By.name("$.products[0].reviews[1].site"))).selectByVisibleText(site01);
 	driver.findElement(By.xpath("//input[@name='$.products[0].reviews[1].loyaltyCardNumber']")).sendKeys(cardnumber01);
 	driver.findElement(By.xpath("//input[@name='$.products[0].reviews[1].reviewUrl']")).sendKeys(link01);	
@@ -389,7 +384,7 @@ public class HolderNew {
     driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());
 	file = new File("src/test/resources/" + file011);
     driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());
-	
+	utils.waitForLoad(driver);
 
 	List<WebElement>  prizes = driver.findElements(By.xpath("//label[contains(.,'Выбрать комплимент')]/following-sibling::*//span[@class='Select-arrow']"));
 	prizes.get(1).click();
@@ -397,19 +392,23 @@ public class HolderNew {
 	utils.waitForElement(xPathQuery, driver);
 	driver.findElement(By.xpath(xPathQuery)).click();
 	utils.waitForLoad(driver);
+	
 
 //7. Добавить продукт 2, как новый
 	driver.findElement(By.xpath("//button[contains(.,'Добавить продукт')]")).click();
-	utils.waitForLoad(driver);
+	utils.waitForElement("//*[@name='$.products[1].category']", driver);
 	
 	
 	new Select(driver.findElement(By.name("$.products[1].category"))).selectByVisibleText(product1);
+	utils.waitForLoad(driver);
     driver.findElement(By.xpath("(//label[contains(.,'Модель')]/following-sibling::div//input[@role='combobox'])[2]")).sendKeys(Keys.DELETE);
     	driver.findElement(By.xpath("(//label[contains(.,'Модель')]/following-sibling::div//input[@role='combobox'])[2]")).clear();
     	driver.findElement(By.xpath("(//label[contains(.,'Модель')]/following-sibling::div//input[@role='combobox'])[2]")).sendKeys(model1);
+	utils.waitForLoad(driver);
     driver.findElement(By.xpath("(//label[contains(.,'Модель')]/following-sibling::div//input[@role='combobox'])[2]")).sendKeys(Keys.TAB);
 	
 	new Select(driver.findElement(By.name("$.products[1].number"))).selectByVisibleText(PNC1);
+	utils.waitForLoad(driver);
 	 driver.findElement(By.name("$.products[1].number")).sendKeys(Keys.TAB);
 
 
@@ -456,6 +455,7 @@ public class HolderNew {
 	utils.waitForElement(xPathQuery, driver);
 	driver.findElement(By.xpath(xPathQuery)).click();
 	utils.waitForLoad(driver);
+
 		
 	file = new File("src/test/resources/" + file100);
   driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());
@@ -463,10 +463,6 @@ public class HolderNew {
    driver.findElement(By.name("attachment")).sendKeys(file.getAbsolutePath());	
 	utils.waitForLoad(driver);
 	
-
-	
-  
-
 
 
 //8. Заполнить адрес
@@ -486,37 +482,39 @@ public class HolderNew {
 //-> кнопка Отправить - доступна
    errorn=errorn+1;
    try {
-   		assertTrue("кнопка Отправить доступна",driver.findElement(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]")).isDisplayed());
+   		//assertTrue("кнопка Отправить доступна",driver.findElement(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]")).isDisplayed());
+		assertTrue(utils.isElementPresent(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]"),driver));
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
 	 
 
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Город')]]//input")).sendKeys("Кстово");
-	utils.waitForLoad(driver);
 	utils.waitForElement("//label[contains(.,'Город')]/following-sibling::*//div[@class='Select-menu-outer' and contains(.,'Кстово')]", driver);
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Город')]]//input")).sendKeys(Keys.TAB);
+	utils.waitForElement("//span(text()='г. Кстово,  обл. Нижегородская, р-н. Кстовский')", driver);
 
 	
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Улица')]]//input")).sendKeys("Полевая");
-	utils.waitForLoad(driver);
 	utils.waitForElement("//label[contains(.,'Улица')]/following-sibling::*//div[@class='Select-menu-outer' and contains(.,'Полевая')]", driver);
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Улица')]]//input")).sendKeys(Keys.TAB);
+	utils.waitForElement("//span(text()='ул. Полевая')", driver);
 
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Дом')]]//input")).sendKeys("1");
-	utils.waitForLoad(driver);
  	utils.waitForElement("//label[contains(.,'Дом')]/following-sibling::*//div[@class='Select-menu-outer' and contains(.,'д. 1')]", driver);
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Дом')]]//input")).sendKeys(Keys.TAB);
+	utils.waitForElement("//span(text()='д. 1')", driver);
 	
 	
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Квартира')]]//input")).sendKeys("123");	 
- 	utils.waitForElement("//div[@class='form-field' and label[contains(.,'Квартира')]]//input[@value='123']", driver);
+
 	driver.findElement(By.xpath("//div[@class='form-field' and label[contains(.,'Квартира')]]//input")).sendKeys(Keys.TAB);
-	utils.waitForLoad(driver);
+	 utils.waitForElement("//div[@class='form-field' and label[contains(.,'Квартира')]]//input[@value='123']", driver);
+
 
 //9. Отправить форму ->
 	driver.findElement(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]")).click();
-	utils.waitForLoad(driver);
+	utils.waitForElement("//div[@class='status']", driver);
 	//((JavascriptExecutor)driver).executeScript("window.scrollBy(0,-250)", "");
 
 
@@ -526,7 +524,7 @@ public class HolderNew {
    try {
 
 
-		assertThat("Отправить форму -> появился счетчик, отсчет от текущего момента", driver.findElement(By.xpath("//div[@class='react-cntdwn-timer']")).getText(), containsString("9дн 23ч"));
+		assertThat("Отправить форму -> появился счетчик, отсчет от текущего момента", driver.findElement(By.xpath("//div[@class='react-cntdwn-timer']")).getText(), containsString("9дн 23ч")); 
   
    } catch (Error e) {
        utils.errorList(errorn,e);

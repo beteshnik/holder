@@ -85,19 +85,12 @@ public class HolderBack {
 
   @Test
   public void testHolderBack() throws Exception {
-
+	PageObjectLoginForm loginForm = new PageObjectLoginForm();
+	loginForm.init(driver);
 //Авторизоваться в админке
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form",driver);
-
-	driver.findElement(By.name("login")).click();
-	driver.findElement(By.name("login")).clear();
-	driver.findElement(By.name("login")).sendKeys(moderatorname);
-
-	driver.findElement(By.name("password")).click();
-	driver.findElement(By.name("password")).clear();
-	driver.findElement(By.name("password")).sendKeys(password);
-	driver.findElement(By.xpath("//button[text()='Войти']")).click();
+	loginForm.login(moderatorname,password);
 	utils.waitForElement("//h2[text()='Акции']",driver);
 //Открыть акцию
 	driver.findElement(By.xpath("//a[contains(.,'Комплимент за отзыв')]")).click();

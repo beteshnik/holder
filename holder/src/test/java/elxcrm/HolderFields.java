@@ -45,19 +45,13 @@ public class HolderFields {
 
   @Test
   public void testHolderFields() throws Exception {
-
+	PageObjectLoginForm loginForm = new PageObjectLoginForm();
+	loginForm.init(driver);
 
 //1. Авторизоваться, 
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
-	driver.findElement(By.xpath("//div[@class='cookie-sticky-holder fixed ']//div[@class='close-btn icon-cross-white']")).click();
-	driver.findElement(By.name("login")).click();
-	driver.findElement(By.name("login")).clear();
-	driver.findElement(By.name("login")).sendKeys(username + "@gmail.com");
-	driver.findElement(By.name("password")).click();
-	driver.findElement(By.name("password")).clear();
-	driver.findElement(By.name("password")).sendKeys(password);
-	driver.findElement(By.xpath("//form/button[@class='btn btn-primary']")).click();
+	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 //открыть форму акции ->	
 	

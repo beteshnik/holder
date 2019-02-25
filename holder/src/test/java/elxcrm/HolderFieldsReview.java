@@ -44,18 +44,12 @@ public class HolderFieldsReview {
   @Test
   public void testHolderFieldsReview() throws Exception {
 
-	 
-//1. Авторизоваться, 
+	PageObjectLoginForm loginForm = new PageObjectLoginForm();
+	loginForm.init(driver);
+//1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
-	driver.findElement(By.xpath("//div[@class='cookie-sticky-holder fixed ']//div[@class='close-btn icon-cross-white']")).click();
-	driver.findElement(By.name("login")).click();
-	driver.findElement(By.name("login")).clear();
-	driver.findElement(By.name("login")).sendKeys(username + "@gmail.com");
-	driver.findElement(By.name("password")).click();
-	driver.findElement(By.name("password")).clear();
-	driver.findElement(By.name("password")).sendKeys(password);
-	driver.findElement(By.xpath("//form/button[@class='btn btn-primary']")).click();
+	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 //открыть форму акции ->	
 //driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Принять участие']")).click();

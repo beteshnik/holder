@@ -43,18 +43,12 @@ public class HolderNavigation {
   @Test
   public void testHolderNavigation() throws Exception {
 
-	
+	PageObjectLoginForm loginForm = new PageObjectLoginForm();
+	loginForm.init(driver);
 //1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
-	driver.findElement(By.xpath("//div[@class='close-btn icon-cross-white']")).click();
-	driver.findElement(By.name("login")).click();
-	driver.findElement(By.name("login")).clear();
-	driver.findElement(By.name("login")).sendKeys(username + "@gmail.com");
-	driver.findElement(By.name("password")).click();
-	driver.findElement(By.name("password")).clear();
-	driver.findElement(By.name("password")).sendKeys(password);
-	driver.findElement(By.xpath("//form/button[@class='btn btn-primary']")).click();
+	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 
 // открывается страница /campaignes
@@ -77,21 +71,15 @@ public class HolderNavigation {
 
 //2. Кликнуть по блоку акции  ->
    driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Принять участие']")).click();
-   //driver.get(baseUrl + "campaigns/1");
-	utils.waitForLoad(driver);
-//открылась страница с формой акции (проверка по заголовоку, url)
+	//открылась страница с формой акции (проверка по заголовоку, url)
+	utils.waitForElement("//h1[contains(.,'Комплимент за отзыв')]", driver);
 	errorn=errorn+1;
 	try {
     	assertEquals(baseUrl + "campaigns/1", driver.getCurrentUrl());
     } catch (Error e) {
       	utils.errorList(errorn,e);
       }
-	errorn=errorn+1;
-	try {
-    		driver.findElement(By.xpath("//h1[contains(.,'Комплимент за отзыв')]"));
-    } catch (Error e) {
-      	utils.errorList(errorn,e);
-      }	  
+  
 //нет попапа с ошибкой  
    errorn=errorn+1;
    try {
@@ -203,16 +191,9 @@ public class HolderNavigation {
 
 //7. Кликнуть ссылку Как найти информацию и код...  ->
 driver.findElement(By.xpath("//a[contains(.,'Как найти информацию и код продукта')]")).click();
-
 //открылся блок
-   errorn=errorn+1;
-   try {
-   		assertTrue(utils.isElementPresent(By.xpath("//div[@class='center-block help__toggleBlockWrap']"),driver));
-   
-   } catch (Error e) {
-       utils.errorList(errorn,e);
-     }
-   errorn=errorn+1;
+utils.waitForElement("//div[@class='center-block help__toggleBlockWrap']", driver);
+errorn=errorn+1;
    try {
    		assertTrue(utils.isElementPresent(By.xpath("//p[contains(.,'Первый способ:')]"),driver));
    
@@ -229,7 +210,7 @@ driver.findElement(By.xpath("//a[contains(.,'Как найти информац�
 
 //8. Кликнуть ссылку Как найти информацию и код...  ->
 driver.findElement(By.xpath("//a[contains(.,'Как найти информацию и код продукта')]")).click();
-
+utils.waitForLoad(driver);
 //свернулся блок
    errorn=errorn+1;
    try {
@@ -254,17 +235,27 @@ driver.findElement(By.xpath("//a[contains(.,'Как найти информац�
      }
 
 driver.get(baseUrl);
-utils.waitForLoad(driver);
+utils.waitForElement("//div[@class='campaigns-list']", driver);
 
 
 if (utils.isElementPresent(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Заполняется']"),driver))
 {driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Заполняется']")).click();}
 if (utils.isElementPresent(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='На заполнении']"),driver))
 {driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='На заполнении']")).click();}
-utils.waitForElement("//form", driver);
+utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 
 driver.findElement(By.xpath("//button[contains(.,'Добавить отзыв')]")).click();
 utils.waitForLoad(driver);
+
+errorn=errorn+1;
+   try {
+   		assertTrue(utils.isElementPresent(By.xpath("//button[contains(.,'Удалить отзыв')]"),driver));
+   
+   } catch (Error e) {
+ utils.errorList(errorn,e);
+     }
+
+
 int elementY= driver.findElement(By.xpath("//a[contains(.,'Как найти информацию и код продукта')]")).getLocation().y;
 JavascriptExecutor executor = (JavascriptExecutor) driver;
 Long scroll = (Long) executor.executeScript("return window.pageYOffset;");
@@ -279,17 +270,21 @@ int scrollY = scroll.intValue();
        utils.errorList(errorn,e);
      }
 
-driver.get(baseUrl);
-utils.waitForElement("//*[text()='Личный кабинет']",driver);
-
 driver.get(baseUrl + "campaigns/1");
-utils.waitForElement("//form", driver);
+utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 driver.findElement(By.xpath("//button[contains(.,'Удалить отзыв')]")).click();
 utils.waitForLoad(driver);
+errorn=errorn+1;
+   try {
+   		assertFalse(utils.isElementPresent(By.xpath("//button[contains(.,'Удалить отзыв')]"),driver));
+   
+   } catch (Error e) {
+ utils.errorList(errorn,e);
+     }
 
 //9. 1. Кликнуть ссылку Как найти код PNC?  ->
 driver.findElement(By.xpath("//a[contains(.,'Как найти код PNC?')]")).click();
-utils.waitForLoad(driver);
+utils.waitForElement("//div[@class='center-block help__toggleBlockWrap']", driver);
 //фокус на блок Как найти информацию и код...
 elementY= driver.findElement(By.xpath("//a[contains(.,'Как найти информацию и код продукта')]")).getLocation().y;
 scroll = (Long) executor.executeScript("return window.pageYOffset;");
@@ -303,17 +298,15 @@ scrollY = scroll.intValue();
        utils.errorList(errorn,e);
      }
  
-driver.get(baseUrl);
-utils.waitForLoad(driver);
-//driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Принять участие']")).click();
-driver.get(baseUrl + "campaigns/1");
-utils.waitForElement("//form", driver);
+
+//driver.get(baseUrl + "campaigns/1");
+//utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 driver.findElement(By.xpath("//button[contains(.,'Добавить отзыв')]")).click();
-Thread.sleep(500);
+utils.waitForElement("//button[contains(.,'Удалить отзыв')]", driver);
 
 //9. 2. Кликнуть ссылку Как найти серийный номер  ->
 driver.findElement(By.xpath("//a[contains(.,'Как найти серийный номер?')]")).click();
-utils.waitForLoad(driver);
+Thread.sleep(2000);
 //фокус на блок Как найти информацию и код...
 elementY= driver.findElement(By.xpath("//a[contains(.,'Как найти информацию и код продукта')]")).getLocation().y;
 scroll = (Long) executor.executeScript("return window.pageYOffset;");
@@ -326,17 +319,26 @@ scrollY = scroll.intValue();
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	 
-  driver.findElement(By.xpath("//button[contains(.,'Удалить отзыв 1')]")).click();
+
+  driver.get(baseUrl + "campaigns/1");
+ utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
+  driver.findElement(By.xpath("//button[contains(.,'Удалить отзыв')]")).click();
+    utils.waitForLoad(driver);
+errorn=errorn+1;
+   try {
+   		assertFalse(utils.isElementPresent(By.xpath("//button[contains(.,'Удалить отзыв')]"),driver));
+   
+   } catch (Error e) {
+ utils.errorList(errorn,e);
+     }
+
 //10. Открыть закладку с адресом   ->
-driver.get(baseUrl);
-utils.waitForLoad(driver);
-//driver.findElement(By.xpath("//h2[contains(.,'Комплимент за отзыв')]/following-sibling::*//a[text()='Принять участие']")).click();
+
 driver.get(baseUrl + "campaigns/1");
-utils.waitForElement("//form", driver);
+utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 
 driver.findElement(By.xpath("//a[div[text()='Адрес доставки']]")).click();
-utils.waitForLoad(driver);
+utils.waitForElement("//h3[text()='Адрес доставки']", driver);
 
 
 //есть ссылка на условия акции 
@@ -351,7 +353,7 @@ utils.waitForLoad(driver);
 	errorn=errorn+1;
 	try {
 
-		//assertEquals("http://s3." + System.getProperty("base.url") + "electrolux-crm/campaigns/1/assets/rules.pdf",  driver.findElement(By.linkText("правилами акции")).getAttribute("href"));
+		
 		 assertThat("Верная ссылка на правила акции", driver.findElement(By.linkText("правилами акции")).getAttribute("href"), containsString("rules.pdf"));
     } catch (Error e) {
       	utils.errorList(errorn,e);

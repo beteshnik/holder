@@ -104,7 +104,7 @@ public class HolderCreateNewUser {
 	  String username=System.getProperty("new.username");
 	  String tofield="";
 	  int t=0;
-	  int timer=50000;
+	  int timer=120000;
 	  int timerstep=2000;
 	  try {
 
