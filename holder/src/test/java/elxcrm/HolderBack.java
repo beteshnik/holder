@@ -102,7 +102,7 @@ public class HolderBack {
 	driver.navigate().refresh();
 	utils.waitForElement("//div[@class='campaign-document-page']",driver);
 //В админке заявка отображается так, как ее заполнил пользователь
-   errorn=errorn+1;
+   errorn++;
    try {
   		 xPathString = String.format("//label[text()='Email']/following-sibling::*[contains(.,'%1$s')]",username);
    		assertTrue(testtext + "Заявка не принадлежит пользователю теста. Возможно, отправленная заявка отсутствует в админке",driver.findElement(By.xpath(xPathString)).isDisplayed());
@@ -116,7 +116,7 @@ public class HolderBack {
 	List<WebElement>  products = driver.findElements(By.xpath("//label[text()='Тип продукта']"));
 	List<WebElement>  reviews = driver.findElements(By.xpath("//label[text()='Ссылка на отзыв']"));
 
-   errorn=errorn+1;
+   errorn++;
    try {
   
    		assertEquals(testtext +"Кол-во продуктов в заявке такое, как задал пользователь",2,products.size());
@@ -125,7 +125,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	
 //Кол-во отзывов 
-	    errorn=errorn+1;
+	    errorn++;
    try {
   
    		assertEquals(testtext +"Кол-во отзывов в заявке такое, как задал пользователь",3,reviews .size());
@@ -134,7 +134,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	
 //Тип продуктов	 
-   errorn=errorn+1;
+   errorn++;
    try {
 
   
@@ -143,7 +143,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Тип продукта такой, как задал пользователь",product1,  driver.findElement(By.xpath("//label[@for='$.products[1].category']/following-sibling::*//div[@class='Select-value']/span")).getText());
@@ -153,7 +153,7 @@ public class HolderBack {
      }	
 	 
 //Модель
-   errorn=errorn+1;
+   errorn++;
    try {
 
   
@@ -162,7 +162,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Модель, как задал пользователь",model1,  driver.findElement(By.xpath("//label[@for='$.products[1].model']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -172,7 +172,7 @@ public class HolderBack {
      }
 	 
 //PNC
-   errorn=errorn+1;
+   errorn++;
    try {
 
   
@@ -181,7 +181,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"PNC, как задал пользователь",PNC1,  driver.findElement(By.xpath("//label[@for='$.products[1].number']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -192,7 +192,7 @@ public class HolderBack {
 
 
 //Серийный номер
-   errorn=errorn+1;
+   errorn++;
    try {
 
   
@@ -201,7 +201,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Серийный номер, как задал пользователь",serial1,  driver.findElement(By.xpath("//label[@for='$.products[1].serial']/following-sibling::*//input")).getAttribute("value"));
@@ -210,7 +210,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	
 //Стоимость	 
-	    errorn=errorn+1;
+	    errorn++;
    try {
 
   
@@ -219,7 +219,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Стоимость, как задал пользователь",price1,  driver.findElement(By.xpath("//label[@for='$.products[1].price']/following-sibling::*//input")).getAttribute("value"));
@@ -229,7 +229,7 @@ public class HolderBack {
      }	
 	 
 	//Год 
-	    errorn=errorn+1;
+	    errorn++;
    try {
 
   
@@ -238,7 +238,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Год , как задал пользователь",year1,  driver.findElement(By.xpath("//label[@for='$.products[1].year']/following-sibling::*//input")).getAttribute("value"));
@@ -247,7 +247,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	 
 //Магазин покупки	 
-		    errorn=errorn+1;
+		    errorn++;
    try {
 
   
@@ -256,7 +256,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Магазин покупки, как задал пользователь",shop1,  driver.findElement(By.xpath("//label[@for='$.products[1].store']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -266,7 +266,7 @@ public class HolderBack {
      }	  
 	 
 	//Сайт с отзывом 
-		    errorn=errorn+1;
+		    errorn++;
    try {
 
     		assertEquals(testtext +"Сайт с отзывом, как задал пользователь",site00,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[0].site']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -274,7 +274,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Сайт с отзывом, как задал пользователь",site01,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[1].site']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -282,7 +282,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	   
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Сайт с отзывом, как задал пользователь",site10,  driver.findElement(By.xpath("//label[@for='root.products[1].reviews[0].site']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -293,7 +293,7 @@ public class HolderBack {
 	 	 
 	//Номер карты лояльности 
 
-		    errorn=errorn+1;
+		    errorn++;
    try {
 
     		assertEquals(testtext +"Номер карты лояльности, как задал пользователь",cardnumber00,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[0].loyaltyCardNumber']/following-sibling::*//input")).getAttribute("value"));
@@ -301,7 +301,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Номер карты лояльности, как задал пользователь",cardnumber01,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[1].loyaltyCardNumber']/following-sibling::*//input")).getAttribute("value"));
@@ -309,7 +309,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	   
-	   errorn=errorn+1;
+	   errorn++;
    try {
 
    		assertEquals(testtext +"Номер карты лояльности, как задал пользователь",cardnumber10,  driver.findElement(By.xpath("//label[@for='root.products[1].reviews[0].loyaltyCardNumber']/following-sibling::*//input")).getAttribute("value"));
@@ -319,7 +319,7 @@ public class HolderBack {
      }	  	 
 	
 	//Ссылка на отзыв
-		    errorn=errorn+1;
+		    errorn++;
    try {
 
     		assertEquals(testtext +"Ссылка на отзыв, как задал пользователь",link00,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[0].reviewUrl']/following-sibling::*//a")).getAttribute("text"));
@@ -327,7 +327,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Ссылка на отзыв, как задал пользователь",link01,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[1].reviewUrl']/following-sibling::*//a")).getAttribute("text"));
@@ -335,7 +335,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	   
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Ссылка на отзыв, как задал пользователь",link10,  driver.findElement(By.xpath("//label[@for='root.products[1].reviews[0].reviewUrl']/following-sibling::*//a")).getAttribute("text"));
@@ -345,7 +345,7 @@ public class HolderBack {
      }	  	 
 	 
 	 	//Приз
-		    errorn=errorn+1;
+		    errorn++;
    try {
 
     		assertEquals(testtext +"Приз, как задал пользователь",prize00,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[0].prize']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -353,7 +353,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Приз, как задал пользователь",prize01,  driver.findElement(By.xpath("//label[@for='root.products[0].reviews[1].prize']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -361,7 +361,7 @@ public class HolderBack {
    } catch (Error e) {
        utils.errorList(errorn,e);
      }	   
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Приз, как задал пользователь",prize10,  driver.findElement(By.xpath("//label[@for='root.products[1].reviews[0].prize']/following-sibling::*//div[@class='Select-value']")).getText());
@@ -372,7 +372,7 @@ public class HolderBack {
 	 
 	 //Адрес
 	 //Город прописки
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Адрес доставки. Город прописки, как задал пользователь","г. Кстово, обл. Нижегородская, р-н. Кстовский",  driver.findElement(By.xpath("//div[@class='form-group' and contains (.,'Город прописки')]//div[@class='Select-value']")).getText());
@@ -381,7 +381,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	 
 	 //Город прописки
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Адрес доставки. Улица, как задал пользователь","ул. Полевая",  driver.findElement(By.xpath("//div[@class='form-group' and contains (.,'Улица')]//div[@class='Select-value']")).getText());
@@ -391,7 +391,7 @@ public class HolderBack {
      }		 
 	 
 	 	 //Дом
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Адрес доставки. Дом, как задал пользователь","д. 1",  driver.findElement(By.xpath("//div[@class='form-group' and contains (.,'Дом')]//div[@class='Select-value']")).getText());
@@ -401,7 +401,7 @@ public class HolderBack {
      }	
 	 
 	 	 	 //Квартира
-	   errorn=errorn+1;
+	   errorn++;
    try {
   
    		assertEquals(testtext +"Адрес доставки. Квартира, как задал пользователь","123",  driver.findElement(By.xpath("//div[@class='form-group' and contains (.,'Квартира')]//input[@class='form-control']")).getAttribute("value"));
@@ -410,7 +410,7 @@ public class HolderBack {
        utils.errorList(errorn,e);
      }	
 //Индекс	
-		   errorn=errorn+1;
+		   errorn++;
    try {
   
    		assertEquals(testtext +"Адрес доставки. Индекс, как задал пользователь","607650",  driver.findElement(By.xpath("//label[text()='Индекс']/following-sibling::input")).getAttribute("value"));
@@ -421,7 +421,7 @@ public class HolderBack {
 	 //Аттачи
 	 List<WebElement>  files = driver.findElements(By.xpath("//i[@class='icon-download']"));
 	 //Кол-во файлов
-	    errorn=errorn+1;
+	    errorn++;
    try {
   
    		assertEquals(testtext +"Кол-во файлов в заявке такое, как задал пользователь",6,files.size());
@@ -433,7 +433,7 @@ public class HolderBack {
 
 	 
 	/*
-	 	errorn=errorn+1;
+	 	errorn++;
 	try {
 	xPathString = String.format("/* /deep/ a#file-link:contains('%s')",file001);  // $("div:contains('Text')")
 	assertEquals(testtext + "В заявке есть файл, который привязал пользователь",driver.findElement(By.cssSelector('$'+xPathString)).isDisplayed());

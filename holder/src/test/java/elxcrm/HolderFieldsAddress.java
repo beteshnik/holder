@@ -24,7 +24,7 @@ public class HolderFieldsAddress {
   private String gridUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationerrors = new StringBuffer();
-  private String username = System.getProperty("new.username");
+  private String username = System.getProperty("new.username") + "@gmail.com";
   private String password = System.getProperty("user.password");
   private int errorn = 0;
   
@@ -49,6 +49,7 @@ public class HolderFieldsAddress {
 //1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
+	loginForm.cookiePanelClose();
 	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 //открыть форму акции ->	
@@ -56,7 +57,7 @@ public class HolderFieldsAddress {
 	driver.get(baseUrl + "campaigns/1");
 	utils.waitForElement("//form", driver);
 //открылась страница с формой акции (проверка по заголовоку, url)
-	errorn=errorn+1;
+	errorn++;
 	try {
     		driver.findElement(By.xpath("//h1[contains(.,'Комплимент за отзыв')]"));
     } catch (Error e) {
@@ -68,7 +69,7 @@ driver.findElement(By.xpath("//a[div[text()='Адрес доставки']]")).c
 utils.waitForLoad(driver);
 
 //нет попапа с ошибкой  
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//div[@class='modalMessage modalMessage_error']"),driver));
    
@@ -78,7 +79,7 @@ utils.waitForLoad(driver);
 
 //3. На форме присутствуют поля
 //Город - пусто
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 		assertFalse(utils.isElementPresent(By.xpath("//div[label[contains(.,'Город')]]//div[@class='Select-value']"),driver));
@@ -87,7 +88,7 @@ utils.waitForLoad(driver);
       	utils.errorList(errorn,e);
       }
 //Улица - пусто
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 		assertFalse(utils.isElementPresent(By.xpath("//div[label[contains(.,'Улица')]]//div[@class='Select-value']"),driver));
@@ -96,7 +97,7 @@ utils.waitForLoad(driver);
       	utils.errorList(errorn,e);
       }
 //Дом - пусто
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 		assertFalse(utils.isElementPresent(By.xpath("//div[label[contains(.,'Дом')]]//div[@class='Select-value']"),driver));
@@ -104,7 +105,7 @@ utils.waitForLoad(driver);
       	utils.errorList(errorn,e);
       }
 //Квартира, поле ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Квартира')]/following-sibling::input"),driver));
 
@@ -114,7 +115,7 @@ utils.waitForLoad(driver);
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Квартира')]/following-sibling::input")).getText());
 
@@ -126,7 +127,7 @@ utils.waitForLoad(driver);
 
  
 //Индекс, поле ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Индекс (рассчитывается автоматически)')]/following-sibling::input"),driver));
 
@@ -136,7 +137,7 @@ utils.waitForLoad(driver);
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Индекс (рассчитывается автоматически)')]/following-sibling::input")).getText());
 
@@ -147,7 +148,7 @@ utils.waitForLoad(driver);
 
 
 //Ознакомление с правилами акции, флаг
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Я подтверждаю, что ознакомлен с')]"),driver));
 
@@ -155,7 +156,7 @@ utils.waitForLoad(driver);
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	    errorn=errorn+1;
+	    errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'правилами акции')]"),driver));
 
@@ -163,7 +164,7 @@ utils.waitForLoad(driver);
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	    errorn=errorn+1;
+	    errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'и даю согласие на обработку моих персональных данных.')]"),driver));
 
@@ -174,7 +175,7 @@ utils.waitForLoad(driver);
 //флаг снят
 
 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 		assertFalse(utils.isElementPresent(By.xpath("//div[@class='customCheckbox']/span[@class=checked]"),driver));
@@ -183,7 +184,7 @@ utils.waitForLoad(driver);
       }
 //Кнопка Отправить
 
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Отправить заявку",driver.findElement(By.xpath("//div[@class='btn btn-disabled StepForm__button_right']")).getText());
 

@@ -25,7 +25,7 @@ public class HolderFields {
   private String gridUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationerrors = new StringBuffer();
-  private String username = System.getProperty("new.username");
+  private String username = System.getProperty("new.username") + "@gmail.com";
   private String password = System.getProperty("user.password");
   private int errorn = 0;
   
@@ -51,6 +51,7 @@ public class HolderFields {
 //1. Авторизоваться, 
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
+	loginForm.cookiePanelClose();
 	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 //открыть форму акции ->	
@@ -58,20 +59,20 @@ public class HolderFields {
 	driver.get(baseUrl + "campaigns/1");
 	utils.waitForElement("//form", driver);
 //открылась страница с формой акции (проверка по заголовоку, url)
-	errorn=errorn+1;
+	errorn++;
 	try {
     	assertEquals(baseUrl + "campaigns/1", driver.getCurrentUrl());
     } catch (Error e) {
       	utils.errorList(errorn,e);
       }
-	errorn=errorn+1;
+	errorn++;
 	try {
     		driver.findElement(By.xpath("//h1[contains(.,'Комплимент за отзыв')]"));
     } catch (Error e) {
       	utils.errorList(errorn,e);
       }	  
 //нет попапа с ошибкой  
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//div[@class='modalMessage modalMessage_error']"),driver));
    
@@ -81,7 +82,7 @@ public class HolderFields {
 
 //2. Есть кнопки
 //Выбрать из моих продуктов, закладка
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue(driver.findElement(By.xpath("//div[text()='Выбрать из моих продуктов']")).isDisplayed());
    
@@ -89,7 +90,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Добавить новый продукт, закладка
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue(driver.findElement(By.xpath("//div[text()='Добавить новый продукт']")).isDisplayed());
    
@@ -97,7 +98,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //3. Закладка Выбрать из моих продуктов выделена как неактивная и недоступная (у пользователя нет продуктов)
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue(driver.findElement(By.xpath("//div[@class='dataSwitcher__item dataSwitcher__item_disabled' and text()='Выбрать из моих продуктов']")).isDisplayed());
    
@@ -106,7 +107,7 @@ public class HolderFields {
      }
 
 //Закладка  Добавить новый продукт выделена как активная
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue(driver.findElement(By.xpath("//div[@class='dataSwitcher__item dataSwitcher__item_active' and text()='Добавить новый продукт']")).isDisplayed());
    
@@ -115,7 +116,7 @@ public class HolderFields {
      }
 //4. На форме присутствуют поля
 //Тип товара, выпадающий список
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*/select[@name='$.products[0].category']"),driver));
 
@@ -125,7 +126,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*/span[@class='StepForm__selectFakeElem']")).getText());
 
@@ -136,7 +137,7 @@ public class HolderFields {
 
 //доступны для выбора
 //Варочная поверхность
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Варочная поверхность",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Варочная поверхность']")).getText());
 
@@ -145,7 +146,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Вытяжка
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Вытяжка",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Вытяжка']")).getText());
 
@@ -154,7 +155,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Духовой шкаф
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Духовой шкаф",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Духовой шкаф']")).getText());
 
@@ -163,7 +164,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Микроволновая печь
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Микроволновая печь",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Микроволновая печь']")).getText());
 
@@ -172,7 +173,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Плита
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Плита",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Плита']")).getText());
 
@@ -181,7 +182,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Посудомоечная машина
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Посудомоечная машина",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Посудомоечная машина']")).getText());
 
@@ -190,7 +191,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Стиральная машина
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Стиральная машина",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Стиральная машина']")).getText());
 
@@ -199,7 +200,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Сушильная машина
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Сушильная машина",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Сушильная машина']")).getText());
 
@@ -208,7 +209,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Узкая стиральная машина с фронт. загрузкой
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Узкая стиральная машина с фронт. загрузкой",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Узкая стиральная машина с фронт. загрузкой']")).getText());
 
@@ -217,7 +218,7 @@ public class HolderFields {
        utils.errorList(errorn,e);
      }
 //Холодильник
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Холодильник",driver.findElement(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Холодильник']")).getText());
 
@@ -228,7 +229,7 @@ public class HolderFields {
 
 //недоступны для выбора
 //Пылесос
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//label[contains(.,'Тип продукта (Выберите тип продукта)')]/following-sibling::*//option[@value='Пылесос']"),driver));
    
@@ -237,7 +238,7 @@ public class HolderFields {
      }
 
 //Модель товара, выпадающий список с возможностью ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Модель (Выберите модель из списка)')]/following-sibling::*//input"),driver));
 
@@ -247,7 +248,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Модель (Выберите модель из списка)')]/following-sibling::*/span[@class='StepForm__selectFakeElem']")).getText());
 
@@ -259,7 +260,7 @@ public class HolderFields {
 
 
 //PNC номер, выпадающий список с возможностью ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'PNC код товара (Выберите PNC из списка)')]/following-sibling::*/select[@name='$.products[0].number']"),driver));
 
@@ -269,7 +270,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'PNC код товара (Выберите PNC из списка)')]/following-sibling::*/span[@class='StepForm__selectFakeElem']")).getText());
 
@@ -279,7 +280,7 @@ public class HolderFields {
      }
 
 //Серийный номер, поле ввода	
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Серийный номер (Указан на продукте.)')]/following-sibling::input[@name='$.products[0].serial']"),driver));
 
@@ -289,7 +290,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Серийный номер (Указан на продукте.)')]/following-sibling::input")).getAttribute("value"));
 
@@ -299,7 +300,7 @@ public class HolderFields {
      }
 
 //Год покупки, поле ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Год покупки (В Акции могут участвовать все модели крупной бытовой техники, приобретенной Участником с символикой Electrolux, начиная с 2010 года, на территории Российской Федерации, предложенные к продаже в интернет-магазинах)')]/following-sibling::input[@name='$.products[0].year']"),driver));
 
@@ -309,7 +310,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("0000",driver.findElement(By.xpath("//label[contains(.,'Год покупки')]/following-sibling::input")).getAttribute("value"));
 
@@ -319,7 +320,7 @@ public class HolderFields {
      }
 
 //Цена, поле ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Цена (При наличии скидки или использовании бонусов при покупке указать стоимость единицы товара после бонусов и скидки)')]/following-sibling::input[@name='$.products[0].price']"),driver));
 
@@ -329,7 +330,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		
 		String actualValue = driver.findElement(By.xpath("//label[contains(.,'Цена')]/following-sibling::input")).getAttribute("value");
@@ -345,7 +346,7 @@ public class HolderFields {
      }
 
 //Где был куплен продукт выпадающий список с возможностью ввода
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//div[label[contains(.,'Где был куплен')]]//input[@name='$.products[0].store']"),driver));
 
@@ -355,7 +356,7 @@ public class HolderFields {
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//div[label[contains(.,'Где был куплен')]]//input")).getAttribute("value"));
 
@@ -367,7 +368,7 @@ public class HolderFields {
 //5. На форме присутствуют кнопки
 //Добавить отзыв
 
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//button[contains(.,'Добавить отзыв')]"),driver));
 
@@ -378,7 +379,7 @@ public class HolderFields {
 
 //Добавить продукт
 
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//button[contains(.,'Добавить продукт')]"),driver));
 

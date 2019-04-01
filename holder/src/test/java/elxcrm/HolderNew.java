@@ -28,7 +28,7 @@ public class HolderNew {
   private String gridUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationerrors = new StringBuffer();
-  private String username = System.getProperty("new.username");
+  private String username = System.getProperty("new.username") + "@gmail.com";
   private String password = System.getProperty("user.password");
   private int errorn = 0;
   private String PNC0="925031107";
@@ -91,6 +91,7 @@ public class HolderNew {
 //1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
+	loginForm.cookiePanelClose();
 	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 	
@@ -123,7 +124,7 @@ public class HolderNew {
     utils.waitForElement("//div[h1[contains(.,'Комплимент за отзыв')]]//form", driver);
 
 //открылась страница с формой акции (проверка по заголовку, url)
-	errorn=errorn+1;
+	errorn++;
 	try {
     		driver.findElement(By.xpath("//h1[contains(.,'Комплимент за отзыв')]"));
     } catch (Error e) {
@@ -133,7 +134,7 @@ public class HolderNew {
 //2. Активна вкладка Добавить новый продукт. 
 
 
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue(driver.findElement(By.xpath("//div[@class='dataSwitcher__item dataSwitcher__item_active' and text()='Добавить новый продукт']")).isDisplayed());
    
@@ -182,7 +183,7 @@ public class HolderNew {
 	
 //Появляется окно: При переключении, введенные данные будут удалены! 
 //Перейти: Да/Нет
-   errorn=errorn+1;
+   errorn++;
    try {
    
    assertTrue("Кликнуть по вкладке Выбрать из моих продуктов ->Появляется окно: Данные о продукте будут удалены: Да, Нет", driver.findElement(By.xpath("//div[@class='popup__message' and contains(.,'Данные о продукте будут удалены')]")).isDisplayed());
@@ -193,7 +194,7 @@ public class HolderNew {
      }
 
 //Да
-   errorn=errorn+1;
+   errorn++;
    try {
    
    assertTrue("Кликнуть по вкладке Выбрать из моих продуктов ->Появляется окно: Данные о продукте будут удалены: Да, Нет", driver.findElement(By.xpath("//div[contains(.,'Данные о продукте будут удалены')]//div[contains(.,'Да')]")).isDisplayed());
@@ -203,7 +204,7 @@ public class HolderNew {
       utils.errorList(errorn,e);
      }
 //Нет
-   errorn=errorn+1;
+   errorn++;
    try {
    
    assertTrue("Кликнуть по вкладке Выбрать из моих продуктов ->Появляется окно: Данные о продукте будут удалены: Да, Нет", driver.findElement(By.xpath("//div[contains(.,'Данные о продукте будут удалены')]//div[contains(.,'Нет')]")).isDisplayed());
@@ -216,7 +217,7 @@ public class HolderNew {
     driver.findElement(By.xpath("//div[contains(.,'Данные о продукте будут удалены')]/following-sibling::*//div[contains(.,'Нет')]")).click();
 	utils.waitForLoad(driver);
 //Активна вкладка Добавить новый продукт
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue("Активна вкладка Добавить новый продукт",driver.findElement(By.xpath("//div[@class='dataSwitcher__item dataSwitcher__item_active' and text()='Добавить новый продукт']")).isDisplayed());
    
@@ -224,7 +225,7 @@ public class HolderNew {
        utils.errorList(errorn,e);
      }
 //Заполнены Тип товара, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 	assertTrue("Заполнено поле Тип товара",driver.findElement(By.xpath("//label[contains(.,'Тип продукта')]/following-sibling::*//span[@class='StepForm__selectFakeElem' and contains(.,product1)]")).isDisplayed());
@@ -233,7 +234,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //модель, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 	assertTrue("Заполнено поле модель",driver.findElement(By.xpath("//label[contains(.,'Модель')]/following-sibling::*//span[@class='StepForm__selectFakeElem' and contains(.,model1)]")).isDisplayed());
@@ -242,7 +243,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //PNC, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 	assertTrue("Заполнено поле PNC",driver.findElement(By.xpath("//label[contains(.,'PNC')]/following-sibling::*//span[@class='StepForm__selectFakeElem' and contains(.,PNC1)]")).isDisplayed());
@@ -251,7 +252,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //серийный номер, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 
@@ -261,7 +262,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //год покупки, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 
@@ -271,7 +272,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //цена, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 
@@ -281,7 +282,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //магазин.
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 		assertEquals("Заполнено поле магазин",shop1, driver.findElement(By.xpath("//label[contains(.,'Где был куплен')]/following-sibling::*//span[@class='Select-value-label']")).getText());
@@ -298,7 +299,7 @@ public class HolderNew {
     driver.findElement(By.xpath("//div[contains(.,'Данные о продукте будут удалены')]/following-sibling::*//div[contains(.,'Да')]")).click();
 	utils.waitForLoad(driver);
 //Активна вкладка Выбрать из моих продуктов
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertTrue("Кликнуть по вкладке Выбрать из моих продуктов ->Кликнуть Да ->Активна вкладка Выбрать из моих продуктов",driver.findElement(By.xpath("//div[@class='dataSwitcher__item dataSwitcher__item_active' and text()='Выбрать из моих продуктов']")).isDisplayed());
    
@@ -310,7 +311,7 @@ public class HolderNew {
 
 //Заполнены год покупки, цена, магазин.
 //цена, 
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 
@@ -320,7 +321,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 //магазин.
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 	assertTrue("Заполнено поле магазин",driver.findElement(By.xpath("//label[contains(.,'Где был куплен')]/following-sibling::*//span[@class='Select-value-label' and contains(.,shop1)]")).isDisplayed());
@@ -330,7 +331,7 @@ public class HolderNew {
       	utils.errorList(errorn,e);
       }
 	 //год
-	errorn=errorn+1;
+	errorn++;
 	try {
 
 
@@ -472,7 +473,7 @@ public class HolderNew {
 	driver.findElement(By.xpath("//div[div[@class='customCheckbox'] and label[contains(.,'Я подтверждаю')]]//span")).click();
 	//-> есть шаг 2 Адрес доставки, активный, зеленый
 	
-	errorn=errorn+1;
+	errorn++;
 	try {
     		assertTrue("шаг 2 Адрес доставки, активный, зеленый",driver.findElement(By.xpath("//a[div[text()='Адрес доставки'] and div[text()='заполнено'] and div[@class='StepForm__navNumber StepForm__navNumber_complete StepForm__navNumber_cur']]")).isDisplayed());
     } catch (Error e) {
@@ -480,7 +481,7 @@ public class HolderNew {
       }	
 
 //-> кнопка Отправить - доступна
-   errorn=errorn+1;
+   errorn++;
    try {
    		//assertTrue("кнопка Отправить доступна",driver.findElement(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]")).isDisplayed());
 		assertTrue(utils.isElementPresent(By.xpath("//button[@class='btn btn-primary StepForm__button_right' and contains(.,'Отправить заявку')]"),driver));
@@ -520,7 +521,7 @@ public class HolderNew {
 
 
 //появился счетчик, отсчет от текущего момента
-		   errorn=errorn+1;
+		   errorn++;
    try {
 
 
@@ -537,7 +538,7 @@ public class HolderNew {
 	utils.waitForElement("//h1[contains(.,'Комплимент за отзыв')]", driver);
 //нет формы
 //отображается статус и счетчик
-		   errorn=errorn+1;
+		   errorn++;
    try {
 
 
@@ -547,7 +548,7 @@ public class HolderNew {
        utils.errorList(errorn,e);
      }
 //нет попапа с ошибкой  
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse("нет попапа с ошибкой ",utils.isElementPresent(By.xpath("//div[@class='modalMessage modalMessage_error']"),driver));
    

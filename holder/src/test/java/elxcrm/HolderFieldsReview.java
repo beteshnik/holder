@@ -25,7 +25,7 @@ public class HolderFieldsReview {
   private String gridUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationerrors = new StringBuffer();
-  private String username = System.getProperty("new.username");
+  private String username = System.getProperty("new.username") + "@gmail.com";
   private String password = System.getProperty("user.password");
   private int errorn = 0;
   
@@ -49,6 +49,7 @@ public class HolderFieldsReview {
 //1. Авторизоваться ->
 	driver.get(baseUrl + "");
 	utils.waitForElement("//form", driver);
+	loginForm.cookiePanelClose();
 	loginForm.login(username,password);
 	utils.waitForElement("//h1[text()='Личный кабинет']", driver);
 //открыть форму акции ->	
@@ -56,7 +57,7 @@ public class HolderFieldsReview {
 driver.get(baseUrl + "campaigns/1");
 	utils.waitForElement("//form", driver);
 //открылась страница с формой акции (проверка по заголовоку, url)
-	errorn=errorn+1;
+	errorn++;
 	try {
     		driver.findElement(By.xpath("//h1[contains(.,'Комплимент за отзыв')]"));
     } catch (Error e) {
@@ -66,14 +67,14 @@ driver.get(baseUrl + "campaigns/1");
 
 
 //2. По умолчанию нет полей отзыва
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//label[contains(.,'Площадка размещения отзыва')]"),driver));
    
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//label[contains(.,'Сcылка на отзыв')]"),driver));
    
@@ -86,7 +87,7 @@ driver.get(baseUrl + "campaigns/1");
 	utils.waitForLoad(driver);
 
 //нет попапа с ошибкой  
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//div[@class='modalMessage modalMessage_error']"),driver));
    
@@ -97,7 +98,7 @@ driver.get(baseUrl + "campaigns/1");
 
 //На форме присутствуют поля
 //Площадка размещения отзыва, выпадающий список
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*/select[@name='$.products[0].reviews[0].site']"),driver));
 
@@ -108,7 +109,7 @@ driver.get(baseUrl + "campaigns/1");
 
 //поле по умолчанию заполнено "Яндекс Маркет"
 
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("Яндекс Маркет",driver.findElement(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*/span[@class='StepForm__selectFakeElem']")).getText());
 
@@ -117,7 +118,7 @@ driver.get(baseUrl + "campaigns/1");
        utils.errorList(errorn,e);
      }
 //доступны для выбора М.Видео, Технопарк, Holodilnik, Эльдорадо
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("М.Видео",driver.findElement(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*//option[@value='М.Видео']")).getText());
 
@@ -125,7 +126,7 @@ driver.get(baseUrl + "campaigns/1");
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	    errorn=errorn+1;
+	    errorn++;
    try {
    		assertEquals("Технопарк",driver.findElement(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*//option[@value='Технопарк']")).getText());
 
@@ -133,7 +134,7 @@ driver.get(baseUrl + "campaigns/1");
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	    errorn=errorn+1;
+	    errorn++;
    try {
    		assertEquals("Holodilnik",driver.findElement(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*//option[@value='Holodilnik']")).getText());
 
@@ -141,7 +142,7 @@ driver.get(baseUrl + "campaigns/1");
    } catch (Error e) {
        utils.errorList(errorn,e);
      }
-	    errorn=errorn+1;
+	    errorn++;
    try {
    		assertEquals("Эльдорадо",driver.findElement(By.xpath("//label[contains(.,'Площадка размещения отзыва')]/following-sibling::*//option[@value='Эльдорадо']")).getText());
 
@@ -151,7 +152,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 //Номер карты магазина, поле ввода
 
-  errorn=errorn+1;
+  errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Номер бонусной/скидочной карты Магазина')]/following-sibling::input[@name='$.products[0].reviews[0].loyaltyCardNumber']"),driver));
 
@@ -161,7 +162,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Номер бонусной/скидочной карты Магазина')]/following-sibling::input")).getAttribute("value"));
 
@@ -171,7 +172,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 	//Скриншот отзыва (png, jpg), заголовок
-  errorn=errorn+1;
+  errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Скриншот отзыва (PNG, JPG) (Сделайте скриншот отзыва, сохраните его, и Вы сможете загрузить изображение или фото с Вашего компьютера. Загрузка может не заканчиваться, если у Вас очень большой размер изображения. Уменьшите его и повторите загрузку.)')]/following-sibling::*//input[@name='attachment']"),driver));
 
@@ -182,7 +183,7 @@ driver.get(baseUrl + "campaigns/1");
 
 
 //ссылка Добавьте  документ
-  errorn=errorn+1;
+  errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Скриншот отзыва (PNG, JPG)')]/following-sibling::*//*[contains(.,'Добавьте документ')]"),driver));
 
@@ -192,7 +193,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 //нет картинок
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//label[contains(.,'Скриншот отзыва (PNG, JPG)')]/following-sibling::*//div[@class='StepForm__attach ']"),driver));
    
@@ -201,7 +202,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 //Ссылка на отзыв, поле ввода
-  errorn=errorn+1;
+  errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Сcылка на отзыв (На  скриншоте должно быть четко   видно: Адресная строка, где размещен отзыв(сайт), от чьего лица отзыв, сам отзыв, дата отзыва)')]/following-sibling::input[@name='$.products[0].reviews[0].reviewUrl']"),driver));
 
@@ -211,7 +212,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 //поле пусто
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertEquals("",driver.findElement(By.xpath("//label[contains(.,'Сcылка на отзыв')]/following-sibling::input")).getAttribute("value"));
 
@@ -221,7 +222,7 @@ driver.get(baseUrl + "campaigns/1");
      }
 
 //4. Выбрать приз, выпадающий список
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//label[contains(.,'Выбрать комплимент (Выберите один из предложенных вариантов.)')]/following-sibling::*//div[@class='Select-input']"),driver));
 
@@ -230,7 +231,7 @@ driver.get(baseUrl + "campaigns/1");
        utils.errorList(errorn,e);
      }
 	 
-   errorn=errorn+1;
+   errorn++;
    try {
    		assertFalse(utils.isElementPresent(By.xpath("//*[contains(.,'Чистящее средство')]"),driver));
    
@@ -241,7 +242,7 @@ driver.get(baseUrl + "campaigns/1");
 
 driver.findElement(By.xpath("//label[contains(.,'Выбрать комплимент')]/following-sibling::*//div[@class='Select-placeholder']")).click();
 //доступен для выбора список призов
-   errorn=errorn+1;
+   errorn++;
   try {
    		assertTrue(utils.isElementPresent(By.xpath("//*[contains(.,'Чистящее средство')]"),driver));
    
@@ -252,7 +253,7 @@ driver.findElement(By.xpath("//label[contains(.,'Выбрать комплиме
 //5. На форме присутствуют кнопки
 //Добавить отзыв
 
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//button[contains(.,'Добавить отзыв')]"),driver));
 
@@ -263,7 +264,7 @@ driver.findElement(By.xpath("//label[contains(.,'Выбрать комплиме
 
 //Добавить продукт
 
-   errorn=errorn+1;
+   errorn++;
    try {
 		assertTrue(utils.isElementPresent(By.xpath("//button[contains(.,'Добавить продукт')]"),driver));
 

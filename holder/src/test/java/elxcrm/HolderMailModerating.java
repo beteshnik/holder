@@ -51,7 +51,7 @@ public class HolderMailModerating {
 //пришло письмо для статуса На одобрении
 
 	message=check(host, mailStoreType, username, password);
-	errorn=errorn+1;
+	errorn++;
 	try {
     	assertThat(message, containsString("благодарим Вас за отзыв"));
 
